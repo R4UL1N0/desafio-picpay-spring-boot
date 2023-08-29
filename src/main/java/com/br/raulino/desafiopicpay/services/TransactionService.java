@@ -30,7 +30,7 @@ public class TransactionService {
     @Autowired
     private NotificationService notificationService;
 
-    public void createTransaction(TransactionDTO transactionDTO) throws Exception{
+    public LocalTransaction createTransaction(TransactionDTO transactionDTO) throws Exception{
         LocalUser sender = userService.findUserById(transactionDTO.senderId());
         LocalUser receiver = userService.findUserById(transactionDTO.receiverId());
 
@@ -53,8 +53,10 @@ public class TransactionService {
         userService.saveUser(sender);
         userService.saveUser(receiver);
 
-        notificationService.sendNotification(sender, "Pagamento efetuado com sucesso ");
+        notificationService.sendNotification(sender, "Pagamento realizado com sucesso ");
         notificationService.sendNotification(receiver, "Pagamento recebido com sucesso");
+
+        return authorizedTransaction;
     }
 
     private boolean authorizeTransaction() {

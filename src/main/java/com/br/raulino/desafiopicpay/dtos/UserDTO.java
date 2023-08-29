@@ -1,5 +1,10 @@
 package com.br.raulino.desafiopicpay.dtos;
 
-public record UserDTO() {
+import java.math.BigDecimal;
+
+import com.br.raulino.desafiopicpay.domains.user.UserType;
+
+
+public record UserDTO(String firstName, String lastName, String documentId, BigDecimal balance, String email, String password, UserType userType) {
     
 }
