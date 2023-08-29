@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.br.raulino.desafiopicpay.domains.transaction.LocalTransaction;
-import com.br.raulino.desafiopicpay.domains.transaction.TransactionDTO;
 import com.br.raulino.desafiopicpay.domains.user.LocalUser;
+import com.br.raulino.desafiopicpay.dtos.TransactionDTO;
 import com.br.raulino.desafiopicpay.repositories.TransactionRepository;
 
 @Service
@@ -26,6 +26,9 @@ public class TransactionService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private NotificationService notificationService;
 
     public void createTransaction(TransactionDTO transactionDTO) throws Exception{
         LocalUser sender = userService.findUserById(transactionDTO.senderId());
@@ -49,6 +52,9 @@ public class TransactionService {
         transactionRepository.save(authorizedTransaction);
         userService.saveUser(sender);
         userService.saveUser(receiver);
+
+        notificationService.sendNotification(sender, "Pagamento efetuado com sucesso ");
+        notificationService.sendNotification(receiver, "Pagamento recebido com sucesso");
     }
 
     private boolean authorizeTransaction() {

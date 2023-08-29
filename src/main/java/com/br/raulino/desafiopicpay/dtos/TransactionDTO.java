@@ -1,4 +1,4 @@
-package com.br.raulino.desafiopicpay.domains.transaction;
+package com.br.raulino.desafiopicpay.dtos;
 
 import java.math.BigDecimal;
 
