@@ -26,7 +26,7 @@ public class LocalTransaction {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="sender_id")
